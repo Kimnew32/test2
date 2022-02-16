@@ -1,0 +1,27 @@
+sudo: required
+
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - echo "start Creating an image with dockerfile"
+  - docker build -t yjkim21/test2 -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=ture yjkim21/test2 npm run test -- --coverage
+
+
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-northeast-2"
+  app: "test2"
+  env: "test2-env"
+  bucket_name: "elasticbeanstalk-ap-northeast-2-164394666548"
+  bucket_path: "test2"
+  on
+    branch: master
+
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
