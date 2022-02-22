@@ -10,8 +10,7 @@ before_install:
   - docker build -t yjkim21/test2 -f Dockerfile.dev .
 
 script:
-  - docker run -e CI=ture yjkim21/test2 npm run test -- --coverage
-
+  - docker run -e CI=true yjkim21/test2 npm run test -- --coverage
 
 deploy:
   provider: elasticbeanstalk
